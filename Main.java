@@ -132,12 +132,19 @@ public class Main {
                     }
                 }
             }
+
+            System.out.println("The game is draw");
             return true;
         }
 
     public static void main(String[] args) {
 
         char[][] board = new char[][] {{' ',' ',' '}, {' ', ' ', ' '}, {' ', ' ',' '}};
+        char[][] numberedBoard = new char[][] {{'1', '2', '3'},
+                                                {'4', '5', '6'},
+                                                {'7', '8', '9'}};
+
+        getBoard(numberedBoard);
 
         while (true) {
             player(board);
