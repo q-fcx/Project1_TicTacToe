@@ -86,7 +86,7 @@ public class Main {
         Random random = new Random();
         int computerPlay;
         while(true) {
-            computerPlay = random.nextInt((9) + 1);
+            computerPlay = random.nextInt(10);
             if(isAvailableCell(board, Integer.toString(computerPlay))){
                 break;
             }
@@ -116,13 +116,13 @@ public class Main {
 
         if(isWinner(board, 'X')) {
             getBoard(board);
-            System.out.println("You won");
+            System.out.println("You won the round");
             return true;
         }
 
         if(isWinner(board, 'O')){
             getBoard(board);
-            System.out.println("Computer won");
+            System.out.println("Computer won the round");
             return true;
         }
             for (int i = 0; i < board.length; i++) {
@@ -139,24 +139,44 @@ public class Main {
 
     public static void main(String[] args) {
 
-        char[][] board = new char[][] {{' ',' ',' '}, {' ', ' ', ' '}, {' ', ' ',' '}};
-        char[][] numberedBoard = new char[][] {{'1', '2', '3'},
+       char[][] board = new char[][]{{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
+        char[][] numberedBoard = new char[][]{{'1', '2', '3'},
                                                 {'4', '5', '6'},
                                                 {'7', '8', '9'}};
+        
+        int round = 1;
+        int playerScore = 0;
+        int computerScore = 0;
+        while (round <= 3) {
+            board = new char[][]{{' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '}};
+            System.out.println("Round " + round);
+            getBoard(numberedBoard);
 
-        getBoard(numberedBoard);
-
-        while (true) {
-            player(board);
-            if(isGameEnded(board)) {
-                break;
+            while (true) {
+                player(board);
+                if (isGameEnded(board)) {
+                    playerScore++;
+                    break;
+                }
+                computer(board);
+                if (isGameEnded(board)) {
+                    computerScore++;
+                    break;
+                }
+                getBoard(board);
             }
-            computer(board);
-            if(isGameEnded(board)) {
-                break;
-            }
-            getBoard(board);
+            round++;
         }
+        System.out.println("Final Score:");
+        System.out.println("Player: " + playerScore);
+        System.out.println("Computer: " + computerScore);
 
+        if (playerScore > computerScore) {
+            System.out.println("You won the game");
+        } else if (computerScore > playerScore) {
+            System.out.println("Computer won the game");
+        } else {
+            System.out.println("It's a draw");
+        }
     }
 }
